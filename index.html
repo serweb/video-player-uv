@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UV Video Player</title>
   <style>
-    html,
-    body {
+    html, body {
       width: 100%;
       height: 100%;
       margin: 0;
@@ -45,7 +44,7 @@
     const params = new URLSearchParams(window.location.search);
     const id = params.get('v') || 'ubmliav4a19';
     document.getElementById('videoPlayer').src =
-      'https://www.xvideos.es/embedframe/' + id + '?autoplay=1';
+      'https://www.xvideos.es/embedframe/' + id + '?autoplay=1&mute=1';
   </script>
 </body>
 </html>
