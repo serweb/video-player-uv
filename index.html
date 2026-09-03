@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>UV Video Player</title>
-
   <style>
     html,
     body {
@@ -16,7 +14,6 @@
       overflow: hidden;
       background: #000;
     }
-
     .video-container {
       position: fixed;
       top: 0;
@@ -25,7 +22,6 @@
       height: 100vh;
       background: #000;
     }
-
     iframe {
       position: absolute;
       top: 0;
@@ -37,19 +33,19 @@
     }
   </style>
 </head>
-
 <body>
-
   <div class="video-container">
-
     <iframe
       id="videoPlayer"
-      src="https://www.xvideos.es/embedframe/ubmliav4a19?autoplay=1&muted=1"v
       allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
       allowfullscreen>
     </iframe>
-
   </div>
-
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('v') || 'ubmliav4a19';
+    document.getElementById('videoPlayer').src =
+      'https://www.xvideos.es/embedframe/' + id + '?autoplay=1';
+  </script>
 </body>
 </html>
