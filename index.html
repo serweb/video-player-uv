@@ -5,46 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UV Video Player</title>
   <style>
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background: #000;
-    }
-    .video-container {
+    html, body { margin: 0; background: #000; overflow: hidden; }
+    .video-container { position: fixed; inset: 0; background: #000; }
+    iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: #000;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      gap: 8px;
     }
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
+    .nav button {
+      background: rgba(0,0,0,.7);
+      color: #fff;
+      border: 1px solid #fff;
+      padding: 8px 14px;
+      font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div class="video-container">
-    <iframe
-      id="videoPlayer"
+    <iframe id="videoPlayer"
       allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-      allowfullscreen>
-    </iframe>
+      allowfullscreen></iframe>
+  </div>
+  <div class="nav">
+    <button id="prev">Anterior</button>
+    <button id="next">Siguiente</button>
   </div>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('v') || 'ubmliav4a19';
-    document.getElementById('videoPlayer').src =
-      'https://www.xvideos.es/embedframe/' + id + '?autoplay=1&mute=1';
+    const ids = (new URLSearchParams(location.search).get('v') || 'ubmliav4a19')
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean);
+    let i = 0;
+    const frame = document.getElementById('videoPlayer');
+
+    function load() {
+      frame.src = 'https://www.xvideos.es/embedframe/' + ids[i] + '?autoplay=1';
+    }
+
+    document.getElementById('next').onclick = () => {
+      i = (i + 1) % ids.length;
+      load();
+    };
+    document.getElementById('prev').onclick = () => {
+      i = (i - 1 + ids.length) % ids.length;
+      load();
+    };
+
+    load();
   </script>
 </body>
 </html>
